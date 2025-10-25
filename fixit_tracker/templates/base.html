@@ -8,6 +8,12 @@
     {% block head %} {% endblock %}
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+        </ul>
+    </nav>
     <main>{% block content %} {% endblock %}</main>
 </body>
 </html>
