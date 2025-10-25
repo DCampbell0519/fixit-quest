@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<section class="profile-container">
+    <div class="profile-details">
+        <h1>Welcome to your profile page, {{ profile.user.username }}!</h1>
+        <p>Current XP: {{ profile.xp }}</p>
+        <p>Current Level: {{ profile.level}}</p>
+    </div>
+</section>
+
+<section class="home-container">
+    <div class="home-details">
+        <h3>Home Stats:</h3>
+        {% if profile.home_set.all %}
+        {% for home in profile.home_set.all %}
+            <ul>Address: {{ home.home_address}}</ul>
+            <ul>Square Footage: {{ home.home_sqft}}</ul>
+            <ul>Bedrooms: {{ home.home_bedrooms }}</ul>
+            <ul>Bathrooms: {{ home.home_bathrooms }}</ul>
+            <ul>Purchase/Rental Date: {{ home.home_acquired }}</ul>
+            <ul>Photo: {{ home.home_photo }}</ul>    
+        {% endfor %}
+        {% else %}
+        <p>{{ profile.user.username }} does not have any homes to display!</p>
+    </div>
+    {% endif %}
+</section>
+
+<section class="vehicle-container">
+    <div class="vehicle-details">
+        <h3>Vehicle Stats:</h3>
+        {% if profile.vehicle_set.all %}
+        {% for vehicle in profile.vehicle_set.all %}
+            <ul>Vehicle's Name: {{ vehicle.vehicle_name }}</ul>
+            <ul>Make: {{ vehicle.vehicle_make }}</ul>
+            <ul>Model: {{ vehicle.vehicle_model }}</ul>
+            <ul>Year: {{ vehicle.vehicle_year }}</ul>
+            <ul>Photo: {{ vehicle.vehicle_photo }}</ul>  
+        {% endfor %}
+        {% else %}
+        <p>{{ profile.user.username }} does not have any vehicles to display!</p>
+    </div>
+    {% endif %}
+</section>
+
+{% endblock %}
