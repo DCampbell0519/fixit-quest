@@ -20,4 +20,35 @@ def profile(request):
 class HomeCreate(CreateView):
     model = Home
     fields = ['home_address', 'home_sqft', 'home_bedrooms', 'home_bathrooms', 'home_acquired', 'home_photo']
+    success_url = '/profile/'
 
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
+
+class HomeUpdate(UpdateView):
+    model = Home
+    fields = ['home_address', 'home_sqft', 'home_bedrooms', 'home_bathrooms', 'home_acquired', 'home_photo']
+    success_url = '/profile/'
+
+class HomeDelete(DeleteView):
+    model = Home
+    success_url = '/profile/'
+
+class VehicleCreate(CreateView):
+    model = Vehicle
+    fields = ['vehicle_name', 'vehicle_make', 'vehicle_model', 'vehicle_year', 'vehicle_photo']
+    success_url = '/profile/'
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
+
+class VehicleUpdate(UpdateView):
+    model = Vehicle
+    fields = ['vehicle_name', 'vehicle_make', 'vehicle_model', 'vehicle_year', 'vehicle_photo']
+    success_url = '/profile/'
+
+class VehicleDelete(DeleteView):
+    model = Vehicle
+    success_url = '/profile/'

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block head %}
-
+    <link rel="stylesheet" href="{% static 'profile.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -22,7 +23,12 @@
             <ul>Bedrooms: {{ home.home_bedrooms }}</ul>
             <ul>Bathrooms: {{ home.home_bathrooms }}</ul>
             <ul>Purchase/Rental Date: {{ home.home_acquired }}</ul>
-            <ul>Photo: {{ home.home_photo }}</ul>    
+            <ul>Photo: {{ home.home_photo }}</ul>
+        
+        <div class="home-actions">
+            <a href="{% url 'home-update' home.id %}" class="btn warn">Edit Home</a>
+            <a href="{% url 'home-delete' home.id %}" class="btn danger">Delete Home</a>
+        </div>
         {% endfor %}
         {% else %}
         <p>{{ profile.user.username }} does not have any homes to display!</p>
@@ -39,7 +45,12 @@
             <ul>Make: {{ vehicle.vehicle_make }}</ul>
             <ul>Model: {{ vehicle.vehicle_model }}</ul>
             <ul>Year: {{ vehicle.vehicle_year }}</ul>
-            <ul>Photo: {{ vehicle.vehicle_photo }}</ul>  
+            <ul>Photo: {{ vehicle.vehicle_photo }}</ul>
+            
+        <div class="vehicle-actions">
+            <a href="{% url 'vehicle-update' vehicle.id %}" class="btn warn">Edit Vehicle</a>
+            <a href="{% url 'vehicle-delete' vehicle.id %}" class="btn danger">Delete Vehicle</a>
+        </div>
         {% endfor %}
         {% else %}
         <p>{{ profile.user.username }} does not have any vehicles to display!</p>

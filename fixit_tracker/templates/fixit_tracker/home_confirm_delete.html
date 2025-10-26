@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    <h1>Delete home?</h1>
+</div>
+
+<h2>Are you sure you want to Delete this home, located at {{ home.home_address }}?</h2>
+
+<form action="" method="POST" class="form">
+    {% csrf_token %}
+    <a href="{% url 'profile' %}" class="btn-secondary">Cancel</a>
+    <button type='submit' class="btn danger">Yes - Delete!</button>
+</form>
+
+
+{% endblock %}

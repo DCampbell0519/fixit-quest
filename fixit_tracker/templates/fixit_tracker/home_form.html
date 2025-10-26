@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div>
+    {% if home %}
+        <h1>Edit your home located at: {{ home.home_address }}</h1>
+    {% else %}
+    <h1>Add a Home to your Profile</h1>
+    {% endif %}
+</div>
+
+<form action="" method="POST" class="form-container">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn submit">Submit!</button>
+</form>
+
+{% endblock %}
