@@ -1,5 +1,9 @@
+import random
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 # Create your models here.
 class Profile(models.Model):
@@ -50,3 +54,44 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.category_name}'
+
+class Task(models.Model):
+    task_name = models.CharField(max_length=100)
+    task_description = models.TextField(max_length=350, blank=True, null=True)
+    task_xp_reward = models.IntegerField(default=10)
+    task_xp_random = models.IntegerField(default=0, blank=True, null=True)
+    task_is_complete = models.BooleanField(default=False)
+    task_date_created = models.DateField('Date Created', auto_now_add=True)
+    task_date_completed = models.DateField('Date Completed', blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.task_name} created on {self.task_date_created}'
+
+    def xp_randomizer(self):
+        task_xp_random = random.randint(0, 5)
+        task_xp_reward = task_xp_reward + task_xp_random
+
+    def clean(self):
+        if not self.category:
+            raise ValidationError('A Task must be linked to a Category')
+
+    def save(self, *args, **kwargs):
+        if self.task_is_complete and not self.task_date_completed:
+            self.task_date_completed = timezone.now().date()
+
+            if self.task_xp_random == 0:
+                self.task_xp_random = random.randint(0, 5)
+            
+            total_xp = self.task_xp_reward + self.task_xp_random
+
+            profile = None
+            if self.category.home:
+                profile = self.category.home.profile
+            elif self.category.vehicle:
+                profile = self.category.vehicle.profile
+            
+            if profile:
+                profile.xp += total_xp
+                profile.save()
+        super().save(*args, **kwargs)
