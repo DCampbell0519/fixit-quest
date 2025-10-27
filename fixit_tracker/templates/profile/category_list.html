@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head%}
+
+{% endblock %}
+
+
+{% block content %}
+<section class="home-container">
+<h1>Open Categories in Home:</h1>
+    {% if home_categories %}
+        <ul>
+            {% for category in home_categories %}
+            <li>{{ category.category_name }}
+                <div class="category-actions">
+                    <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
+                    <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Home categories yet!</p>
+    {% endif %}
+
+    <h1>Open Categories in Vehicle:</h1>
+    {% if vehicle_categories %}
+        <ul>
+            {% for category in vehicle_categories %}
+            <li>{{ category.category_name }}
+                <div class="category-actions">
+                    <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
+                    <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Vehicle categories yet!</p>
+    {% endif %}
+</section>
+
+
+{% endblock %}

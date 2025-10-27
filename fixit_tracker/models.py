@@ -33,3 +33,20 @@ class Vehicle(models.Model):
     def __str__(self):
         return f'{self.vehicle_year} {self.vehicle_make} {self.vehicle_model} ({self.profile.user.username})' 
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=100)
+    category_description = models.TextField(max_length=350, blank=True, null=True)
+    home = models.ForeignKey(Home, null=True, blank=True, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    def clean(self):
+        if not self.home and not self.vehicle:
+            raise ValidationError('A Category must be linked to either a Home or a Vehicle')
+        if self.home and self.vehicle:
+            raise ValidationError('A Category can not be linked to both a Home and a Vehicle')
+
+    def __str__(self):
+        return f'{self.category_name}'

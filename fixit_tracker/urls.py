@@ -13,5 +13,8 @@ urlpatterns = [
     path('vehicle/create/', views.VehicleCreate.as_view(), name='vehicle-create'),
     path('vehicle/<int:pk>/update/', views.VehicleUpdate.as_view(), name='vehicle-update'),
     path('vehicle/<int:pk>/delete/', views.VehicleDelete.as_view(), name='vehicle-delete'),
-
+    path('category/create/', views.CategoryCreate.as_view(), name='category-create'),
+    path('category/list/', views.CategoryList.as_view(), name='category-list'),
+    path('category/<int:pk>/update', views.CategoryUpdate.as_view(), name='category-update'),
+    path('category/<int:pk>/delete', views.CategoryDelete.as_view(), name='category-delete'),
 ]
