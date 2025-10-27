@@ -6,12 +6,11 @@
 {% block content %}
 <div>
     {% if category %}
-        <h1>Edit your home located at: {{ home.home_address }}</h1>
+        <h1>Edit this category: {{ category.category_name }}</h1>
     {% else %}
-    <h1>Add a Home to your Profile</h1>
+        <h1>Add a Category</h1>
     {% endif %}
-    <h1>Add a Category</h1>
-</div>
+    </div>
 
 <form action="" method="POST" class="form-container">
     {% csrf_token %}
