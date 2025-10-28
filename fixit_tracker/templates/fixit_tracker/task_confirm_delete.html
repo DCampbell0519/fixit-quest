@@ -3,14 +3,14 @@
 {% block content %}
 
 <div>
-    <h1>Delete Category?</h1>
+    <h1>Delete Task?</h1>
 </div>
 
-<h2>Are you sure you want to Delete the following Category: {{ category.category_name }}?</h2>
+<h2>Are you sure you want to Delete the following Task: {{ task.task_name }}?</h2>
 
 <form action="" method="POST" class="form">
     {% csrf_token %}
-    <a href="{% url 'category-list' %}" class="btn-secondary">Cancel</a>
+    <a href="{% url 'task-detail' task.id %}" class="btn-secondary">Cancel</a>
     <button type='submit' class="btn danger">Yes - Delete!</button>
 </form>
 

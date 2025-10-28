@@ -1,8 +1,9 @@
+from django.urls import reverse
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Profile, Home, Vehicle, Category, Task
 
 # Create your views here.
@@ -88,9 +89,48 @@ class CategoryDelete(DeleteView):
 
 class TaskCreate(CreateView):
     model = Task
-    fields = ['task_name', 'task_description', 'task_date_completed', 'task_notes', 'task_image', 'category']
+    fields = ['task_name', 'task_description', 'task_is_complete', 'task_notes', 'task_image', 'category']
     success_url = '/profile/'
 
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
         return super().form_valid(form)
+
+class TaskList(ListView):
+    model = Task
+    template_name = 'profile/task_list.html'
+    context_object_name = 'tasks'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['home_tasks'] = Task.objects.filter(category__home__isnull=False, category__vehicle__isnull=True, task_is_complete=False)
+        context['vehicle_tasks'] = Task.objects.filter(category__vehicle__isnull=False, category__home__isnull=True, task_is_complete=False)
+        context['completed_home_tasks'] = Task.objects.filter(category__home__isnull=False, category__vehicle__isnull=True, task_is_complete=True)
+        context['completed_vehicle_tasks'] = Task.objects.filter(category__vehicle__isnull=False, category__home__isnull=True, task_is_complete=True)
+        return context
+    
+        
+
+class TaskDetail(DetailView):
+    model = Task
+    template_name = 'profile/task_detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        task = self.object
+        if task.category.home:
+            context['home_photo'] = task.category.home.home_photo
+        if task.category.vehicle:
+            context['vehicle_photo'] = task.category.vehicle.vehicle_photo
+        return context 
+
+class TaskUpdate(UpdateView):
+    model = Task
+    fields = ['task_name', 'task_description', 'task_is_complete', 'task_notes', 'task_image', 'category']
+    
+    def get_success_url(self):
+        return reverse('task-detail', kwargs={'pk': self.object.pk})
+
+class TaskDelete(DeleteView):
+    model = Task
+    success_url = '/task/list/'

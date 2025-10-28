@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+<div>
+    {% if home_photo %}
+        <h3>Home Photo:</h3>
+        <img src="{{ home_photo.url }}" alt="Home Photo">
+    {% elif vehicle_photo %}
+        <h3>Vehicle Photo:</h3>
+        <img src="{{ vehicle_photo.url }}" alt="Vehicle Photo">
+    {% endif %}
+</div>
+
+<section>
+    <h3>Task: {{ task.task_name }}</h3>
+    <p>Created on: {{ task.task_date_created }}</p>
+    
+    {% if task.task_is_complete %}
+        <p>Completed on: {{ task.task_date_completed }}</p>
+    {% elif not task.task_is_complete %}
+        <p>Completed on: N/A</p>
+    {% endif %}
+
+    {% if task.task_description %}
+        <p>Description: {{ task.task_description }}</p>
+    {% elif not task.task_description %}
+        <p>Description: N/A</p>
+    {% endif %}
+
+    {% if task.category.home %}
+        <p>Association: Home</p>
+    {% elif task.category.vehicle %}
+        <p>Association: Vehicle</p>
+    {% endif %}
+
+    {% if task.task_notes %}
+        <p>Notes: {{ task.task_notes }}</p>
+    {% elif not task.task_notes %}
+        <p>Notes: N/A</p>
+    {% endif %}
+
+    <div>
+        {% if task.task_image %}
+            {% for image in task.task_image %}
+                <p>Images:</p>
+                <img src="image.url" alt="User uploaded image">
+            {% endfor %}
+        {% elif not task.task_image %}
+            <p>No Images Uploaded</p>
+        {% endif %}
+    </div>
+
+    <div class="task-actions">
+        <a href="{% url 'task-update' task.id %}" class="btn warn">Edit Task</a>
+        <a href="{% url 'task-delete' task.id %}" class="btn danger">Delete Task</a>
+    </div>
+</section>
+
+
+
+
+
+{% endblock %}

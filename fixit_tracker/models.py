@@ -59,7 +59,7 @@ class Task(models.Model):
     task_description = models.TextField(max_length=350, blank=True, null=True)
     task_xp_reward = models.IntegerField(default=10)
     task_xp_random = models.IntegerField(default=0, blank=True, null=True)
-    task_is_complete = models.BooleanField(default=False)
+    task_is_complete = models.BooleanField(verbose_name='Is Task complete?', default=False, help_text='Check the box once you have completed this task')
     task_date_created = models.DateField('Date Created', auto_now_add=True)
     task_date_completed = models.DateField('Date Completed', blank=True, null=True)
     task_notes = models.TextField(max_length=500, blank=True, null=True)

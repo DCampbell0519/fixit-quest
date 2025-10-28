@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head%}
+
+{% endblock %}
+
+
+{% block content %}
+<section class="home-container">
+<h1>Open Home Tasks:</h1>
+    {% if home_tasks %}
+        <ul>
+            {% for task in home_tasks %}
+                <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Home Tasks yet!</p>
+    {% endif %}
+
+<h1>Completed Home Tasks:</h1>
+    {% if completed_home_tasks %}
+        <ul>
+            {% for task in completed_home_tasks %}
+                    <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h1>Open Vehicle Tasks:</h1>
+    {% if vehicle_tasks %}
+        <ul>
+            {% for task in vehicle_tasks %}
+                <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Vehicle Tasks yet!</p>
+    {% endif %}
+
+    <h1>Completed Vehicle Tasks:</h1>
+    {% if completed_vehicle_tasks %}
+        <ul>
+            {% for task in completed_vehicle_tasks %}
+                    <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</section>
+
+
+{% endblock %}
