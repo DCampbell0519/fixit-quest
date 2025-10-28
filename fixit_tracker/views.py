@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
-from .models import Profile, Home, Vehicle, Category
+from .models import Profile, Home, Vehicle, Category, Task
 
 # Create your views here.
 class HomeView(LoginView):
@@ -86,3 +86,11 @@ class CategoryDelete(DeleteView):
     model = Category
     success_url = '/category/list/'
 
+class TaskCreate(CreateView):
+    model = Task
+    fields = ['task_name', 'task_description', 'task_date_completed', 'task_notes', 'task_image', 'category']
+    success_url = '/profile/'
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)

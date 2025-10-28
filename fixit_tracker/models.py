@@ -1,5 +1,4 @@
 import random
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -63,6 +62,8 @@ class Task(models.Model):
     task_is_complete = models.BooleanField(default=False)
     task_date_created = models.DateField('Date Created', auto_now_add=True)
     task_date_completed = models.DateField('Date Completed', blank=True, null=True)
+    task_notes = models.TextField(max_length=500, blank=True, null=True)
+    task_image = models.ImageField(upload_to='task_photos/', blank=True, null=True, help_text='Upload photos of receipts, completed work, or reference images')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -95,3 +96,4 @@ class Task(models.Model):
                 profile.xp += total_xp
                 profile.save()
         super().save(*args, **kwargs)
+
