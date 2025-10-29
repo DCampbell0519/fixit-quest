@@ -6,15 +6,16 @@
 {% endblock %}
 
 {% block content %}
-<h1>This is your home page!</h1>
-<section>
-    <form action="{% url 'home' %}" method="POST" class="Login">
-        <h1>Login</h1>
-        {% csrf_token %} {{ form|crispy }}
-        <input type="hidden" name="next" value="{{ next }}" />
-        <button type="submit" class="btn submit">Login</button>
-    </form>
-</section>
+{% if not user.is_authenticated %}
+    <section>
+        <form action="{% url 'home' %}" method="POST" class="Login">
+            <h1>Login</h1>
+            {% csrf_token %} {{ form|crispy }}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button type="submit" class="btn submit">Login</button>
+        </form>
+    </section>
+{% endif %}
 
 
 {% endblock %}

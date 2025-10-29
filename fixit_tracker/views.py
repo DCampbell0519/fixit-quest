@@ -1,18 +1,41 @@
 from django.urls import reverse
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Profile, Home, Vehicle, Category, Task
 
 # Create your views here.
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            profile = Profile()
+            profile.user = user
+            profile.save()
+            return redirect('profile')
+        else:
+            error_message = 'Invalid sign up - Please try again.'
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'signup.html', context)
+
 class HomeView(LoginView):
     template_name = 'home.html'
 
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def profile(request):
     profile = Profile.objects.get(user=request.user)
     homes = Home.objects.filter(profile=profile)
@@ -20,7 +43,7 @@ def profile(request):
     return render(request, 'profile/profile.html', {'profile': profile, 'homes': homes, 'vehicles': vehicles })
 
 
-class HomeCreate(CreateView):
+class HomeCreate(LoginRequiredMixin, CreateView):
     model = Home
     fields = ['home_address', 'home_sqft', 'home_bedrooms', 'home_bathrooms', 'home_acquired', 'home_photo']
     success_url = '/profile/'
@@ -29,16 +52,16 @@ class HomeCreate(CreateView):
         form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
-class HomeUpdate(UpdateView):
+class HomeUpdate(LoginRequiredMixin, UpdateView):
     model = Home
     fields = ['home_address', 'home_sqft', 'home_bedrooms', 'home_bathrooms', 'home_acquired', 'home_photo']
     success_url = '/profile/'
 
-class HomeDelete(DeleteView):
+class HomeDelete(LoginRequiredMixin, DeleteView):
     model = Home
     success_url = '/profile/'
 
-class VehicleCreate(CreateView):
+class VehicleCreate(LoginRequiredMixin, CreateView):
     model = Vehicle
     fields = ['vehicle_name', 'vehicle_make', 'vehicle_model', 'vehicle_year', 'vehicle_photo']
     success_url = '/profile/'
@@ -47,71 +70,84 @@ class VehicleCreate(CreateView):
         form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
-class VehicleUpdate(UpdateView):
+class VehicleUpdate(LoginRequiredMixin, UpdateView):
     model = Vehicle
     fields = ['vehicle_name', 'vehicle_make', 'vehicle_model', 'vehicle_year', 'vehicle_photo']
     success_url = '/profile/'
 
-class VehicleDelete(DeleteView):
+class VehicleDelete(LoginRequiredMixin, DeleteView):
     model = Vehicle
     success_url = '/profile/'
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin, CreateView):
     model = Category
     fields = '__all__'
-    success_url = '/profile/'
+    success_url = '/category/list/'
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        user_profile = self.request.user.profile
+        form.fields['home'].queryset = Home.objects.filter(profile=user_profile)
+        form.fields['vehicle'].queryset = Vehicle.objects.filter(profile=user_profile)
+        return form
 
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
-class CategoryList(ListView):
+class CategoryList(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'profile/category_list.html'
     context_object_name = 'categories'
-    # def get_queryset(self):
-    #     return super().get_queryset().filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['home_categories'] = Category.objects.filter(home__isnull=False, vehicle__isnull=True)
-        context['vehicle_categories'] = Category.objects.filter(vehicle__isnull=False, home__isnull=True)
+        user_profile = self.request.user.profile
+        context['home_categories'] = Category.objects.filter(home__profile=user_profile, vehicle__isnull=True)
+        context['vehicle_categories'] = Category.objects.filter(vehicle__profile=user_profile, home__isnull=True)
         return context
 
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin, UpdateView):
     model = Category
     fields = '__all__'
     success_url = '/category/list/'
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin, DeleteView):
     model = Category
     success_url = '/category/list/'
 
-class TaskCreate(CreateView):
+class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
     fields = ['task_name', 'task_description', 'task_notes', 'task_image', 'category']
-    success_url = '/profile/'
+    success_url = '/task/list/'
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        user_profile = self.request.user.profile
+        form.fields['category'].queryset = Category.objects.filter(Q(home__profile=user_profile) | Q(vehicle__profile=user_profile)) 
+        return form
 
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
-class TaskList(ListView):
+class TaskList(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'profile/task_list.html'
     context_object_name = 'tasks'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['home_tasks'] = Task.objects.filter(category__home__isnull=False, category__vehicle__isnull=True, task_is_complete=False)
-        context['vehicle_tasks'] = Task.objects.filter(category__vehicle__isnull=False, category__home__isnull=True, task_is_complete=False)
-        context['completed_home_tasks'] = Task.objects.filter(category__home__isnull=False, category__vehicle__isnull=True, task_is_complete=True)
-        context['completed_vehicle_tasks'] = Task.objects.filter(category__vehicle__isnull=False, category__home__isnull=True, task_is_complete=True)
+        user_profile = self.request.user.profile
+        context['home_tasks'] = Task.objects.filter(category__home__profile=user_profile, category__vehicle__isnull=True, task_is_complete=False)
+        context['vehicle_tasks'] = Task.objects.filter(category__vehicle__profile=user_profile, category__home__isnull=True, task_is_complete=False)
+        context['completed_home_tasks'] = Task.objects.filter(category__home__profile=user_profile, category__vehicle__isnull=True, task_is_complete=True)
+        context['completed_vehicle_tasks'] = Task.objects.filter(category__vehicle__profile=user_profile, category__home__isnull=True, task_is_complete=True)
         return context
     
         
 
-class TaskDetail(DetailView):
+class TaskDetail(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'profile/task_detail.html'
     
@@ -132,13 +168,13 @@ class TaskDetail(DetailView):
             context['vehicle_photo'] = task.category.vehicle.vehicle_photo
         return context 
 
-class TaskUpdate(UpdateView):
+class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
     fields = ['task_name', 'task_description', 'task_notes', 'task_image', 'category']
     
     def get_success_url(self):
         return reverse('task-detail', kwargs={'pk': self.object.pk})
 
-class TaskDelete(DeleteView):
+class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = '/task/list/'
