@@ -45,6 +45,15 @@
         <p>Notes: N/A</p>
     {% endif %}
 
+    <form method="POST">
+        {% csrf_token %}
+        {% if not task.task_is_complete %}
+            <button type="submit" name="complete" class="btn success">Mark Complete</button>
+        {% else %}
+            <p>✅ Task Complete!</p>
+        {% endif %}
+    </form>
+
     <div>
         {% if task.task_image %}
             {% for image in task.task_image %}
@@ -56,7 +65,7 @@
         {% endif %}
     </div>
 
-    <div class="task-actions">
+        <div class="task-actions">
         <a href="{% url 'task-update' task.id %}" class="btn warn">Edit Task</a>
         <a href="{% url 'task-delete' task.id %}" class="btn danger">Delete Task</a>
     </div>

@@ -10,6 +10,21 @@ class Profile(models.Model):
     level = models.IntegerField(default=1)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    XP_PER_LEVEL = 100
+
+    def level_up(self):
+        expected_level = (self.xp // self.XP_PER_LEVEL) + 1
+        if expected_level > self.level:
+            self.level = expected_level
+            self.save()
+            return True
+        return False
+            
+    @property
+    def xp_to_next_level(self):
+        next_threshold = self.level * self.XP_PER_LEVEL
+        return next_threshold - self.xp
+
     def __str__(self):
         return self.user.username
 
@@ -94,6 +109,7 @@ class Task(models.Model):
             
             if profile:
                 profile.xp += total_xp
+                leveled = profile.level_up()
                 profile.save()
         super().save(*args, **kwargs)
 

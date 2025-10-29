@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -89,7 +89,7 @@ class CategoryDelete(DeleteView):
 
 class TaskCreate(CreateView):
     model = Task
-    fields = ['task_name', 'task_description', 'task_is_complete', 'task_notes', 'task_image', 'category']
+    fields = ['task_name', 'task_description', 'task_notes', 'task_image', 'category']
     success_url = '/profile/'
 
     def form_valid(self, form):
@@ -115,6 +115,14 @@ class TaskDetail(DetailView):
     model = Task
     template_name = 'profile/task_detail.html'
     
+    def post(self, request, *args, **kwargs):
+        task = self.get_object()
+        if 'complete' in request.POST:
+            task.task_is_complete = True
+            task.save()
+        
+        return redirect(reverse('task-detail', kwargs={'pk': task.pk }))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         task = self.object
@@ -126,7 +134,7 @@ class TaskDetail(DetailView):
 
 class TaskUpdate(UpdateView):
     model = Task
-    fields = ['task_name', 'task_description', 'task_is_complete', 'task_notes', 'task_image', 'category']
+    fields = ['task_name', 'task_description', 'task_notes', 'task_image', 'category']
     
     def get_success_url(self):
         return reverse('task-detail', kwargs={'pk': self.object.pk})
