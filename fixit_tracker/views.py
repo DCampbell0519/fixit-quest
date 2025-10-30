@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Profile, Home, Vehicle, Category, Task
+from .forms import HomeForm
+from .models import Profile, Home, Vehicle, Category, Task, XPLog
 
 # Create your views here.
 def signup(request):
@@ -44,12 +45,17 @@ def profile(request):
     pending_home_tasks = Task.objects.filter(category__home__profile=profile, task_is_complete=False).count()
     completed_vehicle_tasks = Task.objects.filter(category__vehicle__profile=profile, task_is_complete=True).count()
     pending_vehicle_tasks = Task.objects.filter(category__vehicle__profile=profile, task_is_complete=False).count()
-    return render(request, 'profile/profile.html', {'profile': profile, 'homes': homes, 'vehicles': vehicles, 'completed_home_tasks': completed_home_tasks, 'pending_home_tasks': pending_home_tasks, 'pending_vehicle_tasks': pending_vehicle_tasks, 'completed_vehicle_tasks': pending_vehicle_tasks })
+    xp_logs = XPLog.objects.filter(profile=profile).order_by('-date_logged')[:5]
+    return render(request, 'profile/profile.html', {'profile': profile, 'homes': homes, 'vehicles': vehicles, 'completed_home_tasks': completed_home_tasks, 'pending_home_tasks': pending_home_tasks, 'pending_vehicle_tasks': pending_vehicle_tasks, 'completed_vehicle_tasks': pending_vehicle_tasks, 'xp_logs': xp_logs })
+
+# def xp_log(request):
+#     profile = Profile.objects.get(user=request.user)
+
 
 class HomeCreate(LoginRequiredMixin, CreateView):
     model = Home
-    fields = ['home_address', 'home_sqft', 'home_bedrooms', 'home_bathrooms', 'home_acquired', 'home_photo']
     success_url = '/profile/'
+    form_class = HomeForm
 
     def form_valid(self, form):
         form.instance.profile = self.request.user.profile
@@ -127,7 +133,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         user_profile = self.request.user.profile
-        form.fields['category'].queryset = Category.objects.filter(Q(home__profile=user_profile) | Q(vehicle__profile=user_profile)) 
+        form.fields['category'].queryset = Category.objects.filter(Q(home__profile=user_profile) | Q(vehicle__profile=user_profile)).order_by('home', 'vehicle', 'category_name') 
         return form
 
     def form_valid(self, form):

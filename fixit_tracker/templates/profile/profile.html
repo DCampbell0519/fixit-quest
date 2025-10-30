@@ -12,6 +12,18 @@
         <p>XP to next level: {{ profile.xp_to_next_level }}</p>
         <p>Current Level: {{ profile.level}}</p>
     </div>
+    <div>
+        <h3>Recent XP Gains:</h3>
+        {% if xp_logs %}
+            <ul>
+                {% for log in xp_logs %}
+                    <li>You gained {{log.xp_gained}} XP on {{log.date_logged}} for completing {{log.task.task_name}}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No XP events yet!  Go complete some tasks, you goober!</p>
+        {% endif %}
+    </div>
 </section>
 
 <section class="home-container">

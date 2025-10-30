@@ -1,4 +1,5 @@
 import random
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -37,6 +38,8 @@ class Home(models.Model):
     home_photo = models.ImageField(upload_to='home_photos/', blank=True, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
+    
+
     def __str__(self):
         return f'{self.home_address} ({self.profile.user.username})'
 
@@ -67,7 +70,12 @@ class Category(models.Model):
             raise ValidationError('A Category can not be linked to both a Home and a Vehicle')
 
     def __str__(self):
-        return f'{self.category_name}'
+        if self.home:
+            return f'{self.category_name} (Home)'
+        elif self.vehicle:
+            return f'{self.category_name} (Vehicle)'
+        else:
+            return f'{self.category_name}'
 
 class Task(models.Model):
     task_name = models.CharField(max_length=100)
@@ -84,9 +92,12 @@ class Task(models.Model):
     def __str__(self):
         return f'{self.task_name} created on {self.task_date_created}'
 
-    def xp_randomizer(self):
-        task_xp_random = random.randint(0, 5)
-        task_xp_reward = task_xp_reward + task_xp_random
+    class Meta: 
+        ordering = ['category', '-task_date_created']
+
+    # def xp_randomizer(self):
+    #     task_xp_random = random.randint(0, 5)
+    #     task_xp_reward = task_xp_reward + task_xp_random
 
     def clean(self):
         if not self.category:
@@ -111,5 +122,14 @@ class Task(models.Model):
                 profile.xp += total_xp
                 leveled = profile.level_up()
                 profile.save()
+                XPLog.objects.create(profile=profile, task=self, xp_gained=total_xp)
         super().save(*args, **kwargs)
 
+class XPLog(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
+    xp_gained = models.IntegerField()
+    date_logged = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.profile.user.username} gained {self.xp_gained} XP on {self.date_logged} for completing {self.task}'
