@@ -17,6 +17,8 @@
 <section class="home-container">
     <div class="home-details">
         <h3>Home Stats:</h3>
+        <h5>Open Home Tasks: {{ pending_home_tasks }}</h5>
+        <h5>Completed Home Tasks: {{ completed_home_tasks }}</h5>
         {% if profile.home_set.all %}
         {% for home in profile.home_set.all %}
             <ul>Address: {{ home.home_address}}</ul>
@@ -40,6 +42,8 @@
 <section class="vehicle-container">
     <div class="vehicle-details">
         <h3>Vehicle Stats:</h3>
+        <h5>Open Vehicle Tasks: {{ pending_vehicle_tasks }}</h5>
+        <h5>Completed Vehicle Tasks: {{ completed_vehicle_tasks }}</h5>
         {% if profile.vehicle_set.all %}
         {% for vehicle in profile.vehicle_set.all %}
             <ul>Vehicle's Name: {{ vehicle.vehicle_name }}</ul>

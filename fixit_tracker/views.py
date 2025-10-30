@@ -40,8 +40,11 @@ def profile(request):
     profile = Profile.objects.get(user=request.user)
     homes = Home.objects.filter(profile=profile)
     vehicles = Vehicle.objects.filter(profile=profile)
-    return render(request, 'profile/profile.html', {'profile': profile, 'homes': homes, 'vehicles': vehicles })
-
+    completed_home_tasks = Task.objects.filter(category__home__profile=profile, task_is_complete=True).count()
+    pending_home_tasks = Task.objects.filter(category__home__profile=profile, task_is_complete=False).count()
+    completed_vehicle_tasks = Task.objects.filter(category__vehicle__profile=profile, task_is_complete=True).count()
+    pending_vehicle_tasks = Task.objects.filter(category__vehicle__profile=profile, task_is_complete=False).count()
+    return render(request, 'profile/profile.html', {'profile': profile, 'homes': homes, 'vehicles': vehicles, 'completed_home_tasks': completed_home_tasks, 'pending_home_tasks': pending_home_tasks, 'pending_vehicle_tasks': pending_vehicle_tasks, 'completed_vehicle_tasks': pending_vehicle_tasks })
 
 class HomeCreate(LoginRequiredMixin, CreateView):
     model = Home
