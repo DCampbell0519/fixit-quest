@@ -420,11 +420,29 @@
   .static {
     position: static;
   }
+  @layer daisyui.modifier {
+    .btn-active {
+      --btn-bg: var(--btn-color, var(--color-base-200));
+      --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
+      isolation: isolate;
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .btn-active {
+        --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      }
+    }
+  }
   .block {
     display: block;
   }
   .hidden {
     display: none;
+  }
+  @layer daisyui.modifier.color {
+    .btn-primary {
+      --btn-color: var(--color-primary);
+      --btn-fg: var(--color-primary-content);
+    }
   }
   @layer daisyui.modifier.color {
     .btn-secondary {
