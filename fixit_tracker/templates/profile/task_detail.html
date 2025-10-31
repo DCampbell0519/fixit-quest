@@ -53,22 +53,21 @@
             <p>✅ Task Complete!</p>
         {% endif %}
     </form>
+    
+    <div class="task-actions">
+        <a href="{% url 'task-update' task.id %}" class="btn warn">Edit Task</a>
+        <a href="{% url 'task-delete' task.id %}" class="btn danger">Delete Task</a>
+    </div>
 
     <div>
+        <p>Images:</p>
         {% if task.task_image %}
-            {% for image in task.task_image %}
-                <p>Images:</p>
-                <img src="image.url" alt="User uploaded image">
-            {% endfor %}
+            <img src="{{ task.task_image.url }}" alt="User uploaded image">
         {% elif not task.task_image %}
             <p>No Images Uploaded</p>
         {% endif %}
     </div>
 
-        <div class="task-actions">
-        <a href="{% url 'task-update' task.id %}" class="btn warn">Edit Task</a>
-        <a href="{% url 'task-delete' task.id %}" class="btn danger">Delete Task</a>
-    </div>
 </section>
 
 
