@@ -10,7 +10,7 @@
     <section>
         <form action="{% url 'home' %}" method="POST" class="Login">
             <h1>Login</h1>
-            {% csrf_token %} {{ form|crispy }}
+            {% csrf_token %} {{ form.as_p }}
             <input type="hidden" name="next" value="{{ next }}" />
             <button type="submit" class="btn submit">Login</button>
         </form>
