@@ -37,16 +37,19 @@
             <ul>Square Footage: {{ home.home_sqft}}</ul>
             <ul>Bedrooms: {{ home.home_bedrooms }}</ul>
             <ul>Bathrooms: {{ home.home_bathrooms }}</ul>
-            <ul>Purchase/Rental Date: {{ home.home_acquired }}</ul>
-            <ul>Photo: {{ home.home_photo }}</ul>
-        
+            <ul>Purchase/Rental Date: {{ home.home_acquired }}</ul>      
         <div class="home-actions">
             <a href="{% url 'home-update' home.id %}" class="btn warn">Edit Home</a>
             <a href="{% url 'home-delete' home.id %}" class="btn danger">Delete Home</a>
         </div>
+        {% if home.home_photo %}
+            <img src="{{ home.home_photo.url }}" alt="An uploaded photo of {{ home.home_address }}">            
+        {% else %}
+            <img src="{% static 'images/default_home.jpeg' %}" alt="cartoon home on a sunny day">
+        {% endif %}
         {% endfor %}
         {% else %}
-        <p>{{ profile.user.username }} does not have any homes to display!</p>
+            <p>{{ profile.user.username }} does not have any homes to display!</p>
     </div>
     {% endif %}
 </section>
@@ -63,11 +66,15 @@
             <ul>Model: {{ vehicle.vehicle_model }}</ul>
             <ul>Year: {{ vehicle.vehicle_year }}</ul>
             <ul>Photo: {{ vehicle.vehicle_photo }}</ul>
-            
         <div class="vehicle-actions">
             <a href="{% url 'vehicle-update' vehicle.id %}" class="btn warn">Edit Vehicle</a>
             <a href="{% url 'vehicle-delete' vehicle.id %}" class="btn danger">Delete Vehicle</a>
         </div>
+        {% if vehicle.vehicle_photo %}
+            <img src="{{ vehicle.vehicle_photo.url }}" alt="An uploaded photo of a{{ vehicle.vehicle_make }} {{ vehicle.vehicle_model }}">            
+        {% else %}
+            <img src="{% static 'images/default_car.jpeg' %}" alt="cartoon car in a garage">
+        {% endif %}
         {% endfor %}
         {% else %}
         <p>{{ profile.user.username }} does not have any vehicles to display!</p>
