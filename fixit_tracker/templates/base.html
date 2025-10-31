@@ -1,40 +1,40 @@
 {% load static tailwind_tags %}
 
 <!DOCTYPE html>
-<html lang="en" data-theme="cupcake">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% tailwind_css %}
     <title>FixIt Quest</title>
-    
+
     {% block head %} {% endblock %}
-</head>
-<body>
+  </head>
+  <body>
     <nav>
-        <ul>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="{% url 'profile' %}">Profile</a></li>
-                <li><a href="{% url 'home-create' %}">Add a Home</a></li>
-                <li><a href="{% url 'vehicle-create' %}">Add a Vehicle</a></li>
-                <li><a href="{% url 'category-create' %}">Create Category</a></li>
-                <li><a href="{% url 'category-list' %}">See all Categories</a></li>
-                <li><a href="{% url 'task-create' %}">Add a Task</a></li>
-                <li><a href="{% url 'task-list' %}">See all Tasks</a></li>
-                <li>
-                    <form id="logout-form" method="POST" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit">Log Out</button>
-                    </form>
-                </li>
-            {% else %}
-                <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="{% url 'home' %}">Login</a></li>
-                <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            {% endif %}
-        </ul>
+      <ul>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li><a href="{% url 'home-create' %}">Add a Home</a></li>
+        <li><a href="{% url 'vehicle-create' %}">Add a Vehicle</a></li>
+        <li><a href="{% url 'category-create' %}">Create Category</a></li>
+        <li><a href="{% url 'category-list' %}">See all Categories</a></li>
+        <li><a href="{% url 'task-create' %}">Add a Task</a></li>
+        <li><a href="{% url 'task-list' %}">See all Tasks</a></li>
+        <li>
+          <form id="logout-form" method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+          </form>
+        </li>
+        {% else %}
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'home' %}">Login</a></li>
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
     </nav>
     <main>{% block content %} {% endblock %}</main>
-</body>
+  </body>
 </html>

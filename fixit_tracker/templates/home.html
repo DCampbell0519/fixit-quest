@@ -1,17 +1,17 @@
 {% extends 'base.html' %} 
 {% load static %}
 {% block head %}
-
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
 {% endblock %}
 
 {% block content %}
 {% if not user.is_authenticated %}
-    <section>
+    <section class="profile-page">
         <form action="{% url 'home' %}" method="POST" class="Login">
             <h1>Login</h1>
             {% csrf_token %} {{ form.as_p }}
             <input type="hidden" name="next" value="{{ next }}" />
-            <button type="submit" class="btn btn-active btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </section>
 {% endif %}
