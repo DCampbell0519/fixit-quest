@@ -5,23 +5,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anta&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     {% tailwind_css %}
     <title>FixIt Quest</title>
 
     {% block head %} {% endblock %}
   </head>
   <body>
+    <div>
+      <a href="/"
+        ><img
+          src="{% static 'images/fixit_logo.jpeg' %}"
+          alt="Cartoon repairman"
+      /></a>
+    </div>
     <nav>
       <ul>
         {% if user.is_authenticated %}
-        <li><a href="{% url 'about' %}">About</a></li>
-        <li><a href="{% url 'profile' %}">Profile</a></li>
-        <li><a href="{% url 'home-create' %}">Add a Home</a></li>
-        <li><a href="{% url 'vehicle-create' %}">Add a Vehicle</a></li>
-        <li><a href="{% url 'category-create' %}">Create Category</a></li>
-        <li><a href="{% url 'category-list' %}">See all Categories</a></li>
-        <li><a href="{% url 'task-create' %}">Add a Task</a></li>
-        <li><a href="{% url 'task-list' %}">See all Tasks</a></li>
+        <div class="navbar bg-base-100 shadow-sm">
+          <a href="{% url 'about' %}" class="btn btn-ghost text-xl">About</a>
+          <a href="{% url 'profile' %}" class="btn btn-ghost text-xl"
+            >Profile</a
+          >
+          <a href="{% url 'home-create' %}" class="btn btn-ghost text-xl"
+            >Add a Home</a
+          >
+          <a href="{% url 'vehicle-create' %}" class="btn btn-ghost text-xl"
+            >Add a Vehicle</a
+          >
+          <a href="{% url 'category-create' %}" class="btn btn-ghost text-xl"
+            >Create Category</a
+          >
+          <a href="{% url 'category-list' %}" class="btn btn-ghost text-xl"
+            >See all Categories</a
+          >
+          <a href="{% url 'task-create' %}" class="btn btn-ghost text-xl"
+            >Add a Task</a
+          >
+          <a href="{% url 'task-list' %}" class="btn btn-ghost text-xl"
+            >See all Tasks</a
+          >
+        </div>
+
         <li>
           <form id="logout-form" method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
