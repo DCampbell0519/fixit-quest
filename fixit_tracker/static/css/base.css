@@ -46,11 +46,11 @@ header {
     border-radius: 30px;
 }
 
-.signin-container {
+/* .signin-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: space-evenly;
+    align-items: center;
     width: 100%;
     height: 80%;
 }
@@ -61,13 +61,45 @@ header {
     justify-content: space-evenly;
     width: 16em;
     height: 50%;
-    background-color: rgba(164, 245, 231, 0.2);
+    background-color: rgba(228, 127, 57, 1.0);
     padding: 30px 40px 20px 40px;
     border-radius: 20px;
-    color: rgb(255, 255, 255);
+    color: black;
     font-weight: bold;
-    box-shadow: 10px 5px 5px rgba(198, 23, 23, 0.5);
+    box-shadow: 10px 5px 5px rgba(127, 165, 158, 1.0);
     margin-left: 2rem;
-    backdrop-filter: opacity(20%);
-    z-index: 10;
 }
+
+h1 {
+    font-size: 25px;
+    padding: 5px 30px 10px 0;
+}
+
+input {
+    box-sizing: border-box;
+    border: 2px solid black;
+}
+
+.signup-button,
+.signin-button {
+    padding: 10px;
+    background-color: rgba(164, 245, 231, 0.2);
+    color: white;
+    border-radius: 30px;
+    border: none;
+    margin: 15px 0;
+    font-size: 1.1em;
+    backdrop-filter: opacity(20%);
+    cursor: pointer;
+    font-family: "Michroma", sans-serif;
+}
+
+.signin-button:hover,
+.signup-button:hover {
+    color: black;
+}
+
+.signin-button:active,
+.signup-button:active {
+    transform: translateY(4px);
+} */
