@@ -1,29 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
 {% endblock %}
 
 {% block content %}
 <section class="profile-container">
     <div class="profile-details">
         <h1>Welcome to your profile page, {{ profile.user.username }}!</h1>
+    </div>
+<section class="xp-container">
+    <div class="xp-details">
         <p>Current XP: {{ profile.xp }}</p>
         <p>XP to next level: {{ profile.xp_to_next_level }}</p>
         <p>Current Level: {{ profile.level}}</p>
     </div>
-    <div>
+    <div class="xp-gains">
         <h3>Recent XP Gains:</h3>
         {% if xp_logs %}
             <ul>
-                {% for log in xp_logs %}
-                    <li>You gained {{log.xp_gained}} XP on {{log.date_logged}} for completing {{log.task.task_name}}</li>
-                {% endfor %}
+            {% for log in xp_logs %}
+                <li>You gained {{log.xp_gained}} XP on {{log.date_logged}} for completing {{log.task.task_name}}</li>
+            {% endfor %}
             </ul>
         {% else %}
             <p>No XP events yet!  Go complete some tasks, you goober!</p>
         {% endif %}
     </div>
+</section>
 </section>
 
 <section class="home-container">

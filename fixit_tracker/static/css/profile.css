@@ -1,16 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
-
-.anta-regular {
-  font-family: "Anta", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-/* .btn {
-    border-color: black;
+/* .profile-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: red;
+    margin-top: 50px;
 } */
 
-/* .profile-page {
-    background-color: red;
-    font-family: "Anta", sans-serif;
+.profile-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 40px;
+    margin-top: 50px;
+}
+
+.xp-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+}
+
+.xp-details .xp-gains {
+    flex: 1;
+}
+
+/* .xp-gains {
+    display: flex;
+    flex-direction: column;
 } */
