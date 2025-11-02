@@ -15,7 +15,9 @@
     margin-top: 15px;
 }
 
-.home-form {
+.home-form,
+.vehicle-form,
+.category-form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -45,7 +47,9 @@
     transform: translateY(4px);
 }
 
-input {
+input,
+textarea,
+select {
     box-sizing: border-box;
     border: 2px solid black;
 }
