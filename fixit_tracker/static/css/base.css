@@ -28,8 +28,16 @@ header {
 
 .header-logo-container {
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.header-logo-container h1 {
+    font-family: "Anta", sans-serif;
+    font-size: 60px;
+    margin: 0;
+    line-height: 0.5;
 }
 
 .navbar {
@@ -45,6 +53,7 @@ header {
     box-sizing: border-box;
     border-radius: 30px;
 }
+
 
 /* .signin-container {
     display: flex;
