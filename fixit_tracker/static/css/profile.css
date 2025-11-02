@@ -19,13 +19,33 @@
     justify-content: space-between;
     align-items: flex-end;
     gap: 2rem;
+    margin-bottom: 30px;
 }
 
 .xp-details .xp-gains {
     flex: 1;
 }
 
-/* .xp-gains {
+.card {
+    background-color: rgba(127, 165, 158, 0.5) !important;
+    max-height: 583px;
+    margin-bottom: 30px;
+}
+
+
+.home-vehicle-container {
     display: flex;
-    flex-direction: column;
-} */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.home-details,
+.vehicle-details {
+    flex: 1 1 300px;
+    max-width: 400px;
+}
+
+
+
