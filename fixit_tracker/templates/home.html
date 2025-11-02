@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -12,8 +12,8 @@
 
 
 
-    <section class="profile-page">
-        <form action="{% url 'home' %}" method="POST" class="Login">
+    <section class="signin-container">
+        <form action="{% url 'home' %}" method="POST" class="signin-form">
             <h1>Login</h1>
             {% csrf_token %} {{ form.as_p }}
             <input type="hidden" name="next" value="{{ next }}" />

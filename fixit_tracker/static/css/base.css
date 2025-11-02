@@ -6,6 +6,68 @@
   font-style: normal;
 }
 
-nav {
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #F7E6CA;
+    background-attachment: fixed;
+}
+
+header {
+    display: flex;
+    max-width: 100vw;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    /* background-color: red; */
+    z-index: 1000;
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+}
+
+.header-logo-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.navbar {
     font-family: "Anta", sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    height: fit-content;
+    width: fit-content;
+    padding: 5px;
+    margin-top: 10px;
+    border: 3px solid rgba(127, 165, 158, 0.788);
+    box-sizing: border-box;
+    border-radius: 30px;
+}
+
+.signin-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 80%;
+}
+
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 16em;
+    height: 50%;
+    background-color: rgba(164, 245, 231, 0.2);
+    padding: 30px 40px 20px 40px;
+    border-radius: 20px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    box-shadow: 10px 5px 5px rgba(198, 23, 23, 0.5);
+    margin-left: 2rem;
+    backdrop-filter: opacity(20%);
+    z-index: 10;
 }
