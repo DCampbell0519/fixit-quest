@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block head %}
-
+    <link rel="stylesheet" href="{% static 'css/form.css' %}" />
 {% endblock %}
 
 {% block content %}
-<div>
+<div class="edit-or-add">
     {% if home %}
         <h1>Edit this category: {{ category.category_name }}</h1>
     {% else %}
@@ -13,11 +14,13 @@
 </div>
 
 <form action="" method="POST" enctype="multipart/form-data" class="form-container">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <button type="submit" class="btn submit">Submit!</button>
+    <div class="home-form">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit" class="submit-button">Submit!</button>
+    </div>
 </form>
 
 {% endblock %}

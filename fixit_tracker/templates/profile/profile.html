@@ -54,8 +54,8 @@
                         <ul>Bathrooms: {{ home.home_bathrooms }}</ul>
                         <ul>Purchase/Rental Date: {{ home.home_acquired }}</ul> 
                         <div class="card-actions justify-end">
-                            <a href="{% url 'home-update' home.id %}" class="btn warn">Edit Home</a>
-                            <a href="{% url 'home-delete' home.id %}" class="btn danger">Delete Home</a>
+                            <a href="{% url 'home-update' home.id %}" class="edit-button">Edit Home</a>
+                            <a href="{% url 'home-delete' home.id %}" class="delete-button">Delete Home</a>
                         </div>
                     </div>
                 </div>
@@ -89,8 +89,8 @@
                         <ul>Model: {{ vehicle.vehicle_model }}</ul>
                         <ul>Year: {{ vehicle.vehicle_year }}</ul>
                         <div class="card-actions justify-end">
-                            <a href="{% url 'vehicle-update' vehicle.id %}" class="btn warn">Edit Vehicle</a>
-                            <a href="{% url 'vehicle-delete' vehicle.id %}" class="btn danger">Delete Vehicle</a>
+                            <a href="{% url 'vehicle-update' vehicle.id %}" class="edit-button">Edit Vehicle</a>
+                            <a href="{% url 'vehicle-delete' vehicle.id %}" class="delete-button">Delete Vehicle</a>
                         </div>
                     </div>
                 </div>
