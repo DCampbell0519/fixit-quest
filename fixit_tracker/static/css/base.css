@@ -47,7 +47,9 @@ header {
     justify-content: flex-end;
     height: fit-content;
     width: fit-content;
-    padding: 5px;
+    padding: 10px;
+    /* flex: 1 1 60%; */
+    gap: 0.75rem;
     margin-top: 10px;
     border: 3px solid rgba(127, 165, 158, 0.788);
     box-sizing: border-box;
