@@ -2,76 +2,161 @@
 {% load static %}
 
 {% block head %}
-
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}" />
 {% endblock %}
 
 
 {% block content %}
-<div>
-    {% if home_photo %}
-        <h3>Home Photo:</h3>
-        <img src="{{ home_photo.url }}" alt="Home Photo">
-    {% elif vehicle_photo %}
-        <h3>Vehicle Photo:</h3>
-        <img src="{{ vehicle_photo.url }}" alt="Vehicle Photo">
-    {% endif %}
-</div>
 
-<section>
-    <h3>Task: {{ task.task_name }}</h3>
-    <p>Created on: {{ task.task_date_created }}</p>
+<section class="task-container">
+    <div class="task-details">
+        <div class="card bg-base-100 w-96 shadow-sm">
+            <figure>
+                {% if task.category.home %}
+                    {% if task.category.home.home_photo %}
+                        <img src="{{ home_photo.url }}" alt="User uploaded Home Photo">
+                    {% else %}
+                        <img src="{% static 'images/default_home.jpeg' %}" alt="cartoon home on a sunny day">
+                {% endif %}
+                {% elif task.category.vehicle %}
+                    {% if task.category.vehicle.vehicle_photo %}
+                        <img src="{{ vehicle_photo.url }}" alt="User uploaded Vehicle Photo">
+                    {% else %}
+                        <img src="{% static 'images/default_car.jpeg' %}" alt="red cartoon car in a garage">
+                    {% endif %}
+                {% endif %}
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">{{ task.task_name }}</h2>
+                <ul>Created on: {{ task.task_date_created }}</ul>
+                <ul>
+                    {% if task.task_is_complete %}
+                        <p>Completed on: {{ task.task_date_completed }}</p>
+                    {% elif not task.task_is_complete %}
+                        <p>Completed on: N/A</p>
+                    {% endif %}
+                </ul>
+                <ul>
+                    {% if task.task_description %}
+                        <p>Description: {{ task.task_description }}</p>
+                    {% elif not task.task_description %}
+                        <p>Description: N/A</p>
+                    {% endif %}
+                </ul>
+                <ul>
+                    {% if task.category.home %}
+                        <p>Association: Home</p>
+                    {% elif task.category.vehicle %}
+                        <p>Association: Vehicle</p>
+                    {% endif %}
+                </ul>
+                <ul>
+                    {% if task.task_notes %}
+                        <p>Notes: {{ task.task_notes }}</p>
+                    {% elif not task.task_notes %}
+                        <p>Notes: N/A</p>
+                    {% endif %}
+                </ul>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% if not task.task_is_complete %}
+                        <button type="submit" name="complete" class="complete-button">Mark Complete</button>
+                    {% else %}
+                        <p>✅ Task Complete!</p>
+                    {% endif %}
+                </form>
+                    <div class="card-actions justify-end">
+                        <a href="{% url 'task-update' task.id %}" class="edit-button">Edit Task</a>
+                        <a href="{% url 'task-delete' task.id %}" class="delete-button">Delete Task</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="task-image-container">
+    <h3>Images:</h3>
+        <div class="task-image">
+            {% if task.task_image %}
+                <img src="{{ task.task_image.url }}" alt="User uploaded image">
+            {% elif not task.task_image %}
+                <p>No Images Uploaded</p>
+            {% endif %}
+        </div>
+</section>
+{% endblock %}
+
+
+
+
+<!-- <div>
+    {% if task.category.home %}
+        <h3>Home Photo:</h3>
+            {% if task.category.home.home_photo %}
+                <img src="{{ home_photo.url }}" alt="User uploaded Home Photo">
+            {% else %}
+                <img src="{% static 'images/default_home.jpeg' %}" alt="cartoon home on a sunny day">
+            {% endif %}
+    {% elif task.category.vehicle %}
+        <h3>Vehicle Photo:</h3>
+            {% if task.category.vehicle.vehicle_photo %}
+                <img src="{{ vehicle_photo.url }}" alt="User uploaded Vehicle Photo">
+            {% else %}
+                <img src="{% static 'images/default_car.jpeg' %}" alt="red cartoon car in a garage">
+            {% endif %}
+    {% endif %}
+</div> -->
+
+<!-- <section> -->
+    <!-- <h3>Task: {{ task.task_name }}</h3> -->
+    <!-- <p>Created on: {{ task.task_date_created }}</p> -->
     
-    {% if task.task_is_complete %}
+    <!-- {% if task.task_is_complete %}
         <p>Completed on: {{ task.task_date_completed }}</p>
     {% elif not task.task_is_complete %}
         <p>Completed on: N/A</p>
-    {% endif %}
+    {% endif %} -->
 
-    {% if task.task_description %}
+    <!-- {% if task.task_description %}
         <p>Description: {{ task.task_description }}</p>
     {% elif not task.task_description %}
         <p>Description: N/A</p>
-    {% endif %}
+    {% endif %} -->
 
-    {% if task.category.home %}
+    <!-- {% if task.category.home %}
         <p>Association: Home</p>
     {% elif task.category.vehicle %}
         <p>Association: Vehicle</p>
-    {% endif %}
+    {% endif %} -->
 
-    {% if task.task_notes %}
+    <!-- {% if task.task_notes %}
         <p>Notes: {{ task.task_notes }}</p>
     {% elif not task.task_notes %}
         <p>Notes: N/A</p>
-    {% endif %}
+    {% endif %} -->
 
-    <form method="POST">
+    <!-- <form method="POST">
         {% csrf_token %}
         {% if not task.task_is_complete %}
             <button type="submit" name="complete" class="btn success">Mark Complete</button>
         {% else %}
             <p>✅ Task Complete!</p>
         {% endif %}
-    </form>
+    </form> -->
     
-    <div class="task-actions">
+    <!-- <div class="task-actions">
         <a href="{% url 'task-update' task.id %}" class="btn warn">Edit Task</a>
         <a href="{% url 'task-delete' task.id %}" class="btn danger">Delete Task</a>
-    </div>
+    </div> -->
 
-    <div>
+<!-- </section> -->
+
+
+    <!-- <div>
         <p>Images:</p>
         {% if task.task_image %}
             <img src="{{ task.task_image.url }}" alt="User uploaded image">
         {% elif not task.task_image %}
             <p>No Images Uploaded</p>
         {% endif %}
-    </div>
-
-</section>
-
-
-
-
-
-{% endblock %}
+    </div> -->

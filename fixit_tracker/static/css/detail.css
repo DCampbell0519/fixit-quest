@@ -1,0 +1,44 @@
+.card {
+    background-color: rgba(127, 165, 158, 0.5) !important;
+    max-height: 583px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.edit-button,
+.delete-button,
+.complete-button {
+    padding: 10px;
+    background-color: rgba(239, 86, 58, 0.5);
+    color: black;
+    border-radius: 30px;
+    border: none;
+    margin: 15px 0;
+    font-size: 1.1em;
+    backdrop-filter: opacity(20%);
+}
+
+.edit-button:active,
+.delete-button:active,
+.complete-button {
+    transform: translateY(4px);
+}
+
+.complete-button {
+    background-color: rgba(247, 230, 202, 1.0);
+}
+
+.task-image-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+    align-items: start;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.task-image {
+    display: contents;
+}
