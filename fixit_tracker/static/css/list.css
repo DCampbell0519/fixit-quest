@@ -1,5 +1,9 @@
 .vehicle-category-container,
-.home-category-container {
+.home-category-container,
+.home-task-open-container,
+.home-task-closed-container,
+.vehicle-task-open-container,
+.vehicle-task-closed-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
@@ -9,15 +13,22 @@
     width: 100%;
 }
 
+.home-task-open-container,
+.home-task-closed-container,
+.vehicle-task-open-container,
+.vehicle-task-closed-container {
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+}
+
 .vehicle-category-details,
-.home-category-details {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+.home-category-details,
+.vehicle-task-details,
+.home-task-details {
     display: contents;
 }
 
-h1 {
+#category-header,
+#task-header {
     margin-top: 30px;
     font-size: 50px;
 }
@@ -46,5 +57,9 @@ h1 {
 
 .edit-button:active,
 .delete-button:active {
+    transform: translateY(4px);
+}
+
+.card-link:active {
     transform: translateY(4px);
 }

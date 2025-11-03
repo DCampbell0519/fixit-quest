@@ -1,33 +1,158 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head%}
-
+    <link rel="stylesheet" href="{% static 'css/list.css' %}" />
 {% endblock %}
 
 
 {% block content %}
-<section class="home-container">
-<h1>Open Home Tasks:</h1>
-    {% if home_tasks %}
-        <ul>
+<div id="task-header">
+    <h1>Open Home Tasks:</h1>
+</div>
+<section class="home-task-open-container">
+    <div class="home-task-details">
+        {% if home_tasks %}
             {% for task in home_tasks %}
-                <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No Home Tasks yet!</p>
-    {% endif %}
+                <a href="{% url 'task-detail' task.id %}" class="card-link">
+                    <div class="card bg-base-100 w-96 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ task.task_name }}</h2>
+                        </div>
+                        {% if task.task_image %}
+                            <figure>
+                            <img
+                                src="{{ task.task_image.url }}"
+                                alt="User uploaded photo related to specific task" />
+                            </figure>
+                        {% else %}
+                            <p>No Images to display.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No Home Tasks yet!  Get off your arse and do something!</p>
+            {% endif %}
+        </a>
+    </div>
+</section>
 
-<h1>Completed Home Tasks:</h1>
+<div id="task-header">
+    <h1>Completed Home Tasks:</h1>
+</div>
+<section class="home-task-closed-container">
+    <div class="home-task-details">
+        {% if completed_home_tasks %}
+            {% for task in completed_home_tasks %}
+                <a href="{% url 'task-detail' task.id %}" class="card-link">
+                    <div class="card bg-base-100 w-96 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ task.task_name }}</h2>
+                        </div>
+                        {% if task.task_image %}
+                            <figure>
+                            <img
+                                src="{{ task.task_image.url }}"
+                                alt="User uploaded photo related to specific task" />
+                            </figure>
+                        {% else %}
+                            <p>No Images to display.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No Completed Home Tasks yet!  You suck.</p>
+            {% endif %}
+        </a>
+    </div>
+</section>
+
+<div id="task-header">
+    <h1>Open Vehicle Tasks:</h1>
+</div>
+<section class="vehicle-task-open-container">
+    <div class="vehicle-task-details">
+        {% if vehicle_tasks %}
+            {% for task in vehicle_tasks %}
+                <a href="{% url 'task-detail' task.id %}" class="card-link">
+                    <div class="card bg-base-100 w-96 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ task.task_name }}</h2>
+                        </div>
+                        {% if task.task_image %}
+                            <figure>
+                            <img
+                                src="{{ task.task_image.url }}"
+                                alt="User uploaded photo related to specific task" />
+                            </figure>
+                        {% else %}
+                            <p>No Images to display.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No Vehicle Tasks yet!  Go grab a socket wrench and start banging on stuff!</p>
+            {% endif %}
+        </a>
+    </div>
+</section>
+
+<div id="task-header">
+    <h1>Completed Vehicle Tasks:</h1>
+</div>
+<section class="home-task-closed-container">
+    <div class="vehicle-task-details">
+        {% if completed_vehicle_tasks %}
+            {% for task in completed_vehicle_tasks %}
+                <a href="{% url 'task-detail' task.id %}" class="card-link">
+                    <div class="card bg-base-100 w-96 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ task.task_name }}</h2>
+                        </div>
+                        {% if task.task_image %}
+                            <figure>
+                            <img
+                                src="{{ task.task_image.url }}"
+                                alt="User uploaded photo related to specific task" />
+                            </figure>
+                        {% else %}
+                            <p>No Images to display.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No Completed Vehicle Tasks yet!  What does a transmission do anyway?</p>
+            {% endif %}
+        </a>
+    </div>
+</section>
+
+{% endblock %}
+    
+
+   
+<!-- </section> -->
+<!-- <section class="home-container"> -->
+<!-- <h1>Open Home Tasks:</h1> -->
+    <!-- {% if home_tasks %} -->
+        <!-- <ul> -->
+            <!-- {% for task in home_tasks %} -->
+                <!-- <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li> -->
+            <!-- {% endfor %} -->
+        <!-- </ul> -->
+    <!-- {% else %}
+        <p>No Home Tasks yet!</p>
+    {% endif %} -->
+
+    <!-- <h1>Completed Home Tasks:</h1>
     {% if completed_home_tasks %}
         <ul>
             {% for task in completed_home_tasks %}
                     <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
             {% endfor %}
         </ul>
-    {% endif %}
+    {% endif %} -->
 
-    <h1>Open Vehicle Tasks:</h1>
+<!-- <h1>Open Vehicle Tasks:</h1>
     {% if vehicle_tasks %}
         <ul>
             {% for task in vehicle_tasks %}
@@ -36,17 +161,13 @@
         </ul>
     {% else %}
         <p>No Vehicle Tasks yet!</p>
-    {% endif %}
+    {% endif %} -->
 
-    <h1>Completed Vehicle Tasks:</h1>
+     <!-- <h1>Completed Vehicle Tasks:</h1>
     {% if completed_vehicle_tasks %}
         <ul>
             {% for task in completed_vehicle_tasks %}
                     <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
             {% endfor %}
         </ul>
-    {% endif %}
-</section>
-
-
-{% endblock %}
+    {% endif %} -->
