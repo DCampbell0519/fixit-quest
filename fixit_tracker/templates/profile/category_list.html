@@ -1,29 +1,69 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head%}
-
+    <link rel="stylesheet" href="{% static 'css/list.css' %}" />
 {% endblock %}
 
 
 {% block content %}
-<section class="home-container">
-<h1>Open Categories in Home:</h1>
-    {% if home_categories %}
-        <ul>
+<div id="category-header">
+    <h1>Open Categories in Home:</h1>
+</div>
+<section class="home-category-container">
+    <div class="home-category-details">
+        {% if home_categories %}
             {% for category in home_categories %}
-            <li>{{ category.category_name }}
-                <div class="category-actions">
-                    <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
-                    <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
+                <div class="card card-border bg-base-100 w-96">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ category.category_name }}</h2>
+                        {% if category.category_description %}
+                            <p>{{ category.category_description }}</p>
+                        {% else %}
+                            <p>No description available.</p>
+                        {% endif %}
+                        <div class="card-actions justify-end">
+                            <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
+                            <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
+                        </div>
+                    </div>
                 </div>
-            </li>
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>No Home categories yet!</p>
-    {% endif %}
+        {% else %}
+            <p>No Home categories yet!</p>
+        {% endif %}
+    </div>
+</section>
 
+<div id="category-header">
     <h1>Open Categories in Vehicle:</h1>
+</div>
+<section class="vehicle-category-container">
+    <div class="vehicle-category-details">
+        {% if vehicle_categories %}
+            {% for category in vehicle_categories %}
+                <div class="card card-border bg-base-100 w-96">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ category.category_name }}</h2>
+                        {% if category.category_description %}
+                            <p>{{ category.category_description }}</p>
+                        {% else %}
+                            <p>No description available.</p>
+                        {% endif %}
+                        <div class="card-actions justify-end">
+                            <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
+                            <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No Vehicle categories yet!</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+    <!-- <h1>Open Categories in Vehicle:</h1>
     {% if vehicle_categories %}
         <ul>
             {% for category in vehicle_categories %}
@@ -38,7 +78,22 @@
     {% else %}
         <p>No Vehicle categories yet!</p>
     {% endif %}
-</section>
+</section> -->
 
+<!-- <section class="home-container"> -->
+<!-- <h1>Open Categories in Home:</h1> -->
+    <!-- {% if home_categories %} -->
+        <!-- <ul> -->
+            <!-- {% for category in home_categories %} -->
+            <!-- <li>{{ category.category_name }} -->
+                <!-- <div class="category-actions">
+                    <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
+                    <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
+                </div> -->
+            <!-- </li> -->
+            <!-- {% endfor %} -->
+        <!-- </ul> -->
+    <!-- {% else %}
+        <p>No Home categories yet!</p>
+    {% endif %} -->
 
-{% endblock %}

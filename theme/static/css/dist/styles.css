@@ -573,9 +573,20 @@
     }
   }
   @layer daisyui.modifier.color {
+    .btn-primary {
+      --btn-color: var(--color-primary);
+      --btn-fg: var(--color-primary-content);
+    }
+  }
+  @layer daisyui.modifier.color {
     .btn-secondary {
       --btn-color: var(--color-secondary);
       --btn-fg: var(--color-secondary-content);
+    }
+  }
+  @layer daisyui.modifier {
+    .card-border {
+      border: var(--border) solid var(--color-base-200);
     }
   }
 }
