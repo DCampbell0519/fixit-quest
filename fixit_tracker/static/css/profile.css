@@ -30,6 +30,7 @@
     background-color: rgba(127, 165, 158, 0.5) !important;
     max-height: 583px;
     margin-bottom: 30px;
+    /* box-shadow: 10px 5px 5px rgba(239, 86, 58, 0.7); */
 }
 
 
@@ -50,7 +51,7 @@
 .edit-button,
 .delete-button {
     padding: 10px;
-    background-color: rgba(127, 165, 158, 0.7);
+    background-color: rgba(239, 86, 58, 0.5);
     color: black;
     border-radius: 30px;
     border: none;

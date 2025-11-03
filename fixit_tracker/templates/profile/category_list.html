@@ -22,8 +22,8 @@
                             <p>No description available.</p>
                         {% endif %}
                         <div class="card-actions justify-end">
-                            <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
-                            <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
+                            <a href="{% url 'category-update' category.id %}" class="edit-button">Edit Category</a>
+                            <a href="{% url 'category-delete' category.id %}" class="delete-button">Delete Category</a>
                         </div>
                     </div>
                 </div>
@@ -50,8 +50,8 @@
                             <p>No description available.</p>
                         {% endif %}
                         <div class="card-actions justify-end">
-                            <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
-                            <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
+                            <a href="{% url 'category-update' category.id %}" class="edit-button">Edit Category</a>
+                            <a href="{% url 'category-delete' category.id %}" class="delete-button">Delete Category</a>
                         </div>
                     </div>
                 </div>
