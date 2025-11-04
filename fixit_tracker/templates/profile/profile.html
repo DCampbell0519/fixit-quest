@@ -72,7 +72,7 @@
                 <div class="card bg-base-100 w-96 shadow-sm">
                     <figure>
                         {% if vehicle.vehicle_photo %}
-                            <img src="{{ vehicle.vehicle_photo.url }}" alt="An uploaded photo of a{{ vehicle.vehicle_make }} {{ vehicle.vehicle_model }}">            
+                            <img src="{{ vehicle.vehicle_photo.url }}" alt="An uploaded photo of a {{ vehicle.vehicle_make }} {{ vehicle.vehicle_model }}">            
                         {% else %}
                             <img src="{% static 'images/default_car.jpeg' %}" alt="cartoon car in a garage">
                         {% endif %} 
