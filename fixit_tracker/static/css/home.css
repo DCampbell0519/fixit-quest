@@ -56,3 +56,8 @@ input {
 .signup-button:active {
     transform: translateY(4px);
 }
+
+.signup-header {
+    margin-top: 30px;
+    font-size: 50px;
+}

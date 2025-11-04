@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
 
-<div>
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="delete-header">
     <h1>Delete Vehicle?</h1>
 </div>
 
-<h2>Are you sure you want to Delete your vehicle, {{ vehicle.vehicle_name }}?</h2>
-
-<form action="" method="POST" class="form">
-    {% csrf_token %}
-    <a href="{% url 'profile' %}" class="btn-secondary">Cancel</a>
-    <button type='submit' class="btn danger">Yes - Delete!</button>
+<form action="" method="POST" class="form-container">
+    <div class="delete-form">
+        <h2>Are you sure you want to Delete your vehicle, {{ vehicle.vehicle_name }}?</h2>
+        {% csrf_token %}
+            <a href="{% url 'profile' %}" class="cancel-button">Cancel</a>
+            <button type='submit' class="delete-button">Yes - Delete!</button>
+    </div>
 </form>
-
 
 {% endblock %}

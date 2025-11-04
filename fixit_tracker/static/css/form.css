@@ -1,4 +1,6 @@
-.edit-or-add {
+.edit-or-add,
+.signup-header,
+.delete-header {
     margin-top: 30px;
     font-size: 40px;
     display: flex;
@@ -18,7 +20,9 @@
 .home-form,
 .vehicle-form,
 .category-form,
-.task-form {
+.task-form,
+.signup-form,
+.delete-form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -33,7 +37,9 @@
     margin-left: 2rem;
 }
 
-.submit-button {
+.submit-button,
+.delete-button,
+.cancel-button {
     padding: 10px;
     background-color: rgba(127, 165, 158, 0.7);
     color: black;
@@ -44,6 +50,17 @@
     backdrop-filter: opacity(20%);
 }
 
+.delete-button {
+    background-color: rgba(239, 86, 58, 0.5);
+}
+
+.cancel-button {
+    display: inline-flex;
+    justify-content: center;
+}
+
+.cancel-button:active,
+.delete-button:active,
 .submit-button:active {
     transform: translateY(4px);
 }
@@ -57,4 +74,8 @@ select {
 
 td {
     padding: 5px;  
+}
+
+h2 {
+    font-size: 25px;
 }
