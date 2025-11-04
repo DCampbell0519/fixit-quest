@@ -47,11 +47,6 @@ input {
     cursor: pointer;
 }
 
-/* .signin-button:hover,
-.signup-button:hover {
-    color: black;
-} */
-
 .signin-button:active,
 .signup-button:active {
     transform: translateY(4px);

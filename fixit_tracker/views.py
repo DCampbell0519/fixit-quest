@@ -48,10 +48,6 @@ def profile(request):
     xp_logs = XPLog.objects.filter(profile=profile).order_by('-date_logged')[:5]
     return render(request, 'profile/profile.html', {'profile': profile, 'homes': homes, 'vehicles': vehicles, 'completed_home_tasks': completed_home_tasks, 'pending_home_tasks': pending_home_tasks, 'pending_vehicle_tasks': pending_vehicle_tasks, 'completed_vehicle_tasks': pending_vehicle_tasks, 'xp_logs': xp_logs })
 
-# def xp_log(request):
-#     profile = Profile.objects.get(user=request.user)
-
-
 class HomeCreate(LoginRequiredMixin, CreateView):
     model = Home
     success_url = '/profile/'
@@ -154,8 +150,6 @@ class TaskList(LoginRequiredMixin, ListView):
         context['completed_vehicle_tasks'] = Task.objects.filter(category__vehicle__profile=user_profile, category__home__isnull=True, task_is_complete=True)
         return context
     
-        
-
 class TaskDetail(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'profile/task_detail.html'

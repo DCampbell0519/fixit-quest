@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block head%}
     <link rel="stylesheet" href="{% static 'css/list.css' %}" />
 {% endblock %}
@@ -9,6 +10,7 @@
 <div id="category-header">
     <h1>Open Categories in Home:</h1>
 </div>
+
 <section class="home-category-container">
     <div class="home-category-details">
         {% if home_categories %}
@@ -37,6 +39,7 @@
 <div id="category-header">
     <h1>Open Categories in Vehicle:</h1>
 </div>
+
 <section class="vehicle-category-container">
     <div class="vehicle-category-details">
         {% if vehicle_categories %}
@@ -61,39 +64,6 @@
         {% endif %}
     </div>
 </section>
-
 {% endblock %}
-    <!-- <h1>Open Categories in Vehicle:</h1>
-    {% if vehicle_categories %}
-        <ul>
-            {% for category in vehicle_categories %}
-            <li>{{ category.category_name }}
-                <div class="category-actions">
-                    <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
-                    <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No Vehicle categories yet!</p>
-    {% endif %}
-</section> -->
-
-<!-- <section class="home-container"> -->
-<!-- <h1>Open Categories in Home:</h1> -->
-    <!-- {% if home_categories %} -->
-        <!-- <ul> -->
-            <!-- {% for category in home_categories %} -->
-            <!-- <li>{{ category.category_name }} -->
-                <!-- <div class="category-actions">
-                    <a href="{% url 'category-update' category.id %}" class="btn warn">Edit Category</a>
-                    <a href="{% url 'category-delete' category.id %}" class="btn danger">Delete Category</a>
-                </div> -->
-            <!-- </li> -->
-            <!-- {% endfor %} -->
-        <!-- </ul> -->
-    <!-- {% else %}
-        <p>No Home categories yet!</p>
-    {% endif %} -->
+    
 

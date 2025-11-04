@@ -27,6 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+DEBUG = False
+
 # SECURITY WARNING: don't run with debug turned on in production!
 if not 'ON_HEROKU' in os.environ:
     DEBUG = True

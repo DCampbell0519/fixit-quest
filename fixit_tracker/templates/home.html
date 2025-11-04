@@ -1,17 +1,12 @@
 {% extends 'base.html' %} 
 {% load static %}
+
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
 
 {% block content %}
 {% if not user.is_authenticated %}
-    
-
-
-
-
-
     <section class="signin-container">
         <form action="{% url 'home' %}" method="POST" class="signin-form">
             <h1>Login</h1>
@@ -21,6 +16,4 @@
         </form>
     </section>
 {% endif %}
-
-
 {% endblock %}

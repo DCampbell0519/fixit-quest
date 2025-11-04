@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
 {% endblock %}
@@ -9,25 +10,25 @@
     <div class="profile-details">
         <h1>Welcome to your profile page, {{ profile.user.username }}!</h1>
     </div>
-<section class="xp-container">
-    <div class="xp-details">
-        <p>Current XP: {{ profile.xp }}</p>
-        <p>XP to next level: {{ profile.xp_to_next_level }}</p>
-        <p>Current Level: {{ profile.level}}</p>
-    </div>
-    <div class="xp-gains">
-        <h3>Recent XP Gains:</h3>
-        {% if xp_logs %}
-            <ul>
-            {% for log in xp_logs %}
-                <li>You gained {{log.xp_gained}} XP on {{log.date_logged}} for completing {{log.task.task_name}}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p>No XP events yet!  Go complete some tasks, you goober!</p>
-        {% endif %}
-    </div>
-</section>
+    <section class="xp-container">
+        <div class="xp-details">
+            <p>Current XP: {{ profile.xp }}</p>
+            <p>XP to next level: {{ profile.xp_to_next_level }}</p>
+            <p>Current Level: {{ profile.level}}</p>
+        </div>
+        <div class="xp-gains">
+            <h3>Recent XP Gains:</h3>
+            {% if xp_logs %}
+                <ul>
+                    {% for log in xp_logs %}
+                        <li>You gained {{log.xp_gained}} XP on {{log.date_logged}} for completing {{log.task.task_name}}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No XP events yet!  Go complete some tasks, you goober!</p>
+            {% endif %}
+        </div>
+    </section>
 </section>
 
 <section class="home-vehicle-container">
@@ -64,18 +65,16 @@
             <p>{{ profile.user.username }} does not have any homes to display!</p>
         {% endif %}
     </div>
-<!-- </section> -->
 
-<!-- <section class="home-vehicle-container"> -->
     <div class="vehicle-details">
         {% if profile.vehicle_set.all %}
             {% for vehicle in profile.vehicle_set.all %}
                 <div class="card bg-base-100 w-96 shadow-sm">
                     <figure>
                         {% if vehicle.vehicle_photo %}
-                        <img src="{{ vehicle.vehicle_photo.url }}" alt="An uploaded photo of a{{ vehicle.vehicle_make }} {{ vehicle.vehicle_model }}">            
+                            <img src="{{ vehicle.vehicle_photo.url }}" alt="An uploaded photo of a{{ vehicle.vehicle_make }} {{ vehicle.vehicle_model }}">            
                         {% else %}
-                        <img src="{% static 'images/default_car.jpeg' %}" alt="cartoon car in a garage">
+                            <img src="{% static 'images/default_car.jpeg' %}" alt="cartoon car in a garage">
                         {% endif %} 
                     </figure>
                     <div class="card-body">
@@ -100,60 +99,4 @@
         {% endif %}
     </div>
 </section>  
-
 {% endblock %}
-<!-- <section class="home-container"> -->
-    <!-- <div class="home-details"> -->
-        <!-- <h3>Home Stats:</h3>
-        <h5>Open Home Tasks: {{ pending_home_tasks }}</h5>
-        <h5>Completed Home Tasks: {{ completed_home_tasks }}</h5> -->
-        <!-- {% if profile.home_set.all %}
-        {% for home in profile.home_set.all %} -->
-            <!-- <ul>Address: {{ home.home_address}}</ul>
-            <ul>Square Footage: {{ home.home_sqft}}</ul>
-            <ul>Bedrooms: {{ home.home_bedrooms }}</ul>
-            <ul>Bathrooms: {{ home.home_bathrooms }}</ul>
-            <ul>Purchase/Rental Date: {{ home.home_acquired }}</ul>       -->
-        <!-- <div class="home-actions">
-            <a href="{% url 'home-update' home.id %}" class="btn warn">Edit Home</a>
-            <a href="{% url 'home-delete' home.id %}" class="btn danger">Delete Home</a>
-        </div> -->
-        <!-- {% if home.home_photo %}
-            <img src="{{ home.home_photo.url }}" alt="An uploaded photo of {{ home.home_address }}">            
-        {% else %}
-            <img src="{% static 'images/default_home.jpeg' %}" alt="cartoon home on a sunny day"> -->
-        <!-- {% endif %}
-        {% endfor %} -->
-        <!-- {% else %}
-            <p>{{ profile.user.username }} does not have any homes to display!</p> -->
-    <!-- </div> -->
-    <!-- {% endif %} -->
-<!-- </section> -->
-
-<!-- <section class="vehicle-container"> -->
-    <!-- <div class="vehicle-details"> -->
-        <!-- <h3>Vehicle Stats:</h3>
-        <h5>Open Vehicle Tasks: {{ pending_vehicle_tasks }}</h5>
-        <h5>Completed Vehicle Tasks: {{ completed_vehicle_tasks }}</h5> -->
-        <!-- {% if profile.vehicle_set.all %}
-        {% for vehicle in profile.vehicle_set.all %} -->
-            <!-- <ul>Vehicle's Name: {{ vehicle.vehicle_name }}</ul>
-            <ul>Make: {{ vehicle.vehicle_make }}</ul>
-            <ul>Model: {{ vehicle.vehicle_model }}</ul>
-            <ul>Year: {{ vehicle.vehicle_year }}</ul>
-            <ul>Photo: {{ vehicle.vehicle_photo }}</ul> -->
-        <!-- <div class="vehicle-actions">
-            <a href="{% url 'vehicle-update' vehicle.id %}" class="btn warn">Edit Vehicle</a>
-            <a href="{% url 'vehicle-delete' vehicle.id %}" class="btn danger">Delete Vehicle</a>
-        </div> -->
-        <!-- {% if vehicle.vehicle_photo %}
-            <img src="{{ vehicle.vehicle_photo.url }}" alt="An uploaded photo of a{{ vehicle.vehicle_make }} {{ vehicle.vehicle_model }}">            
-        {% else %}
-            <img src="{% static 'images/default_car.jpeg' %}" alt="cartoon car in a garage">
-        {% endif %} -->
-        <!-- {% endfor %}
-        {% else %} -->
-        <!-- <p>{{ profile.user.username }} does not have any vehicles to display!</p> -->
-    <!-- </div>
-    {% endif %} -->
-<!-- </section> -->

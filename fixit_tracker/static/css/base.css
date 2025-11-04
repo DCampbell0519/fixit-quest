@@ -20,9 +20,7 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    /* background-color: red; */
     z-index: 1000;
-    /* position: fixed; */
     top: 0;
     left: 0;
 }
@@ -49,7 +47,6 @@ header {
     height: fit-content;
     width: fit-content;
     padding: 10px;
-    /* flex: 1 1 60%; */
     gap: 0.75rem;
     margin-top: 10px;
     border: 3px solid rgba(127, 165, 158, 0.788);
@@ -66,61 +63,3 @@ header {
 button {
     cursor: pointer;
 }
-
-/* .signin-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    height: 80%;
-}
-
-.signin-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    width: 16em;
-    height: 50%;
-    background-color: rgba(228, 127, 57, 1.0);
-    padding: 30px 40px 20px 40px;
-    border-radius: 20px;
-    color: black;
-    font-weight: bold;
-    box-shadow: 10px 5px 5px rgba(127, 165, 158, 1.0);
-    margin-left: 2rem;
-}
-
-h1 {
-    font-size: 25px;
-    padding: 5px 30px 10px 0;
-}
-
-input {
-    box-sizing: border-box;
-    border: 2px solid black;
-}
-
-.signup-button,
-.signin-button {
-    padding: 10px;
-    background-color: rgba(164, 245, 231, 0.2);
-    color: white;
-    border-radius: 30px;
-    border: none;
-    margin: 15px 0;
-    font-size: 1.1em;
-    backdrop-filter: opacity(20%);
-    cursor: pointer;
-    font-family: "Michroma", sans-serif;
-}
-
-.signin-button:hover,
-.signup-button:hover {
-    color: black;
-}
-
-.signin-button:active,
-.signup-button:active {
-    transform: translateY(4px);
-} */

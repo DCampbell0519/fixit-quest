@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block head%}
     <link rel="stylesheet" href="{% static 'css/list.css' %}" />
 {% endblock %}
-
 
 {% block content %}
 <div id="task-header">
@@ -50,9 +50,9 @@
                         </div>
                         {% if task.task_image %}
                             <figure>
-                            <img
-                                src="{{ task.task_image.url }}"
-                                alt="User uploaded photo related to specific task" />
+                                <img
+                                    src="{{ task.task_image.url }}"
+                                    alt="User uploaded photo related to specific task" />
                             </figure>
                         {% else %}
                             <p>No Images to display.</p>
@@ -80,9 +80,9 @@
                         </div>
                         {% if task.task_image %}
                             <figure>
-                            <img
-                                src="{{ task.task_image.url }}"
-                                alt="User uploaded photo related to specific task" />
+                                <img
+                                    src="{{ task.task_image.url }}"
+                                    alt="User uploaded photo related to specific task" />
                             </figure>
                         {% else %}
                             <p>No Images to display.</p>
@@ -110,9 +110,9 @@
                         </div>
                         {% if task.task_image %}
                             <figure>
-                            <img
-                                src="{{ task.task_image.url }}"
-                                alt="User uploaded photo related to specific task" />
+                                <img
+                                    src="{{ task.task_image.url }}"
+                                    alt="User uploaded photo related to specific task" />
                             </figure>
                         {% else %}
                             <p>No Images to display.</p>
@@ -125,49 +125,7 @@
         </a>
     </div>
 </section>
-
 {% endblock %}
     
 
    
-<!-- </section> -->
-<!-- <section class="home-container"> -->
-<!-- <h1>Open Home Tasks:</h1> -->
-    <!-- {% if home_tasks %} -->
-        <!-- <ul> -->
-            <!-- {% for task in home_tasks %} -->
-                <!-- <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li> -->
-            <!-- {% endfor %} -->
-        <!-- </ul> -->
-    <!-- {% else %}
-        <p>No Home Tasks yet!</p>
-    {% endif %} -->
-
-    <!-- <h1>Completed Home Tasks:</h1>
-    {% if completed_home_tasks %}
-        <ul>
-            {% for task in completed_home_tasks %}
-                    <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %} -->
-
-<!-- <h1>Open Vehicle Tasks:</h1>
-    {% if vehicle_tasks %}
-        <ul>
-            {% for task in vehicle_tasks %}
-                <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No Vehicle Tasks yet!</p>
-    {% endif %} -->
-
-     <!-- <h1>Completed Vehicle Tasks:</h1>
-    {% if completed_vehicle_tasks %}
-        <ul>
-            {% for task in completed_vehicle_tasks %}
-                    <li><a href="{% url 'task-detail' task.id %}">{{ task.task_name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %} -->

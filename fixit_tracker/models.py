@@ -36,9 +36,7 @@ class Home(models.Model):
     home_bathrooms = models.IntegerField()
     home_acquired = models.DateField()
     home_photo = models.ImageField(upload_to='home_photos/', blank=True, null=True)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-
-    
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)  
 
     def __str__(self):
         return f'{self.home_address} ({self.profile.user.username})'
@@ -94,10 +92,6 @@ class Task(models.Model):
 
     class Meta: 
         ordering = ['category', '-task_date_created']
-
-    # def xp_randomizer(self):
-    #     task_xp_random = random.randint(0, 5)
-    #     task_xp_reward = task_xp_reward + task_xp_random
 
     def clean(self):
         if not self.category:
